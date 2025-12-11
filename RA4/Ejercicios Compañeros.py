@@ -1,4 +1,6 @@
-x = 0
+import unicodedata
+
+x = 3
 
 match x:
     case 0:
@@ -23,9 +25,7 @@ match x:
                         "Pablito un clavito."
                         Imprimiría: u lvt.)
         '''
-
-
-        def encontrar_palabra(palabras1="clavó", palabras2="un"):
+        def encontrar_palabra(palabras1 = "clavó", palabras2 = "un"):
             if palabras1 in a:
                 a2 = a.replace(palabras1, "\b")
             else:
@@ -40,7 +40,6 @@ match x:
             print(b2)
             print(a2[a2.find(" ") + 1::2])
             print(b2[b2.find(" ") + 1::2])
-
 
         a = "Pablito clavó un clavito."
         b = "Tres tristes tigres comían trigo en un trigal."
@@ -58,7 +57,6 @@ match x:
             encontrar_palabra()
     case 1:
         import itertools
-
 
         def calcular_distancia(ciudades, distancias):
             """ Calcula la distancia total de un recorrido """
@@ -132,8 +130,15 @@ match x:
 
 
         def correos_nombres(lista_correos):
+            nombres = []
+            dominios = []
+
             for correo in lista_correos:
-                print(correo[:correo.find("@")])
+                nombres.append(correo[:correo.find("@")])
+                dominios.append(correo[correo.find("@")+1:])
+
+            print(nombres)
+            print(dominios)
 
 
         correos = ["barack.obama@nagger.com",
@@ -185,20 +190,17 @@ match x:
         Ejercicio(Javier Jaén) Anagrama
         Ejercicio(Daniel Lillo) Comprueba que una cadena sea un anagrama. Debes tener en cuenta mayúsculas y espacios.
         '''
-
-
         def anagrama(a, b):
             a = a.replace(' ', '').lower()
             b = b.replace(' ', '').lower()
 
-            listaA = list(a)
-            listaB = list(b)
+            a = unicodedata.normalize('NFD', a)
+            a = a.encode('ascii', 'ignore')
 
-            listaA.sort()
-            listaB.sort()
+            b = unicodedata.normalize('NFD', b)
+            b = b.encode('ascii', 'ignore')
 
-            return listaA == listaB
-
+            return sorted(a) == sorted(b)
 
         a = "Tom Marvolo Riddle"
         b = "I am Lord Voldemort"
@@ -325,7 +327,7 @@ match x:
         print(cadena)
     case 12:
         '''
-        Ejercicio(Oscar Pérez): Crea una función que al pasar le una frase
+        Ejercicio(Oscar Pérez): Crea una función que al pasarle una frase
         cuente el numero de vocales que tiene en total y que pregunte por
         que otra vocal quiere cambiar todas las vocales de la frase, que
         retorne la frase cambiada y el numero de vocales de la frase antes de cambiarlas.
@@ -336,24 +338,26 @@ match x:
             cont = 0
             vocal = "x"
 
-            for letra in frase:
-                if letra in "aeiou": cont += 1
-
             while vocal not in "aeiou":
                 vocal = input("¿Por qué vocal quieres cambiar las vocales?: ")
+
+            for letra in frase:
+                if letra in "aeiou": cont += 1
 
             for letra in frase:
                 if letra in "aeiouAEIOUáéíóúÁÉÍÓÚ":
                     frase = frase.replace(letra, vocal)
 
-            return cont, frase
+            #return cont, frase
+            return f"Hay {cont} vocales\n{frase}"
 
 
         frase = "Tres tristes tigres, tragaban trigo en un trigal, en tres tristes trastos, tragaban trigo tres tristes tigres"
-        vocales, fraseCambiada = vocales(frase)
+        print(vocales(frase))
+        #vocales, fraseCambiada = vocales(frase)
 
-        print("Hay", vocales, "vocales")
-        print(fraseCambiada)
+        #print("Hay", vocales, "vocales")
+        #print(fraseCambiada)
     case 13:
         '''
         Ejercicio(Mohamed Achouragh):
@@ -379,6 +383,33 @@ match x:
         cant, lista = palabras(frase)
         print("Había", cant, "palabras")
         print(lista)
+    case 14:
+        '''
+        Palindromos
+        '''
+        def esPalindromo(palindromo):
+            '''
+            palindromo = (palindromo.replace(' ', '').lower()
+                          .replace("á", "a")
+                          .replace("é", "e")
+                          .replace("í", "i")
+                          .replace("ó", "o")
+                          .replace("ú", "u"))
+            '''
+            palindromo = palindromo.replace(' ', '').lower()
+            palindromo = unicodedata.normalize('NFD', palindromo)
+            palindromo = palindromo.encode('ascii', 'ignore')
+            return palindromo == palindromo[::-1]
+
+        palindromo = "Dábale arroz a la zorra el abad"
+        #palindromo = "Anita lava la tina"
+        #palindromo = "Somos o no somos"
+        #palindromo = "La ruta natural"
+
+        if esPalindromo(palindromo):
+            print("BIEN")
+        else:
+            print("MAL")
     case _:
         frase = "Pablito clavito"
         print(frase[::2])
