@@ -1,0 +1,9 @@
+no estaba originalmente
+a�adida al fichero
+Esta l�nea est� siendo
+Python es fácil de aprender y tiene una gran comunidad.
+Este archivo de texto es un ejemplo para practicar con ficheros en Python.
+Los pandas son una biblioteca de Python para análisis de datos.
+El aprendizaje automático y la inteligencia artificial son áreas populares de Python.
+Se utiliza para el desarrollo web, ciencia de datos, automatización y mucho más.
+Python es un lenguaje de programación.
